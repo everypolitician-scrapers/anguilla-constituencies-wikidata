@@ -16,6 +16,6 @@ QUERY
 wanted = EveryPolitician::Wikidata.sparql(query)
 raise 'No ids' if wanted.empty?
 
-ScraperWiki.sqliteexecute('DELETE FROM data') rescue nil
 data = Wikidata::Areas.new(ids: wanted).data
+ScraperWiki.sqliteexecute('DROP TABLE data') rescue nil
 ScraperWiki.save_sqlite(%i(id), data)
